@@ -6,6 +6,7 @@ const tiles = [
   "assets/tile5.png",
   "assets/tile6.png",
   "assets/tile7.png",
+  "assets/tree.png",
 ];
 let currentTile = 0; // index of tiles
 
