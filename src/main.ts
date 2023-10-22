@@ -1,3 +1,6 @@
+let info = [];
+const data = [info];
+
 const colors = [
   "red",
   "black",
@@ -42,6 +45,7 @@ function createGrid(width, height) {
       });
       square.addEventListener("mousedown", function () {
         click = true;
+        this.setAttribute("fill", colors[currentColor]);
       });
       square.addEventListener("mouseup", function () {
         click = false;
@@ -71,23 +75,31 @@ function createPalette() {
     selector.setAttribute("fill", colors[k]);
     if (colors[k] == "white") {
       selector.setAttribute("stroke", "black");
+      //selector.innerText("Eraser");
     }
 
     svg.appendChild(selector);
   }
 }
 
+createGrid(32, 32);
+createPalette();
+
+
+
 let svgText = svgContainer.innerHTML;
 var jsonString = JSON.stringify(svgText);
 
 console.log(jsonString);
 
-//Get the svgString from JSON
-// svgText = JSON.parse(jsonString);
+
+
+
+// Get the svgString from JSON
+svgText = JSON.parse(jsonString);
+console.log(svgText)
 
 //Creates a SVG Node from the string
 //svgContainer.innerHTML = svgText
 
-createGrid(32, 32);
-createPalette();
 //Puts the SVG into the element with the id "playgroundID"
