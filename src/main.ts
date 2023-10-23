@@ -1,4 +1,11 @@
-const tiles = [
+class Tile {
+  url;
+  constructor(url) {
+    this.url = url
+  }
+}
+
+const urls = [
   "assets/tile1.png",
   "assets/tile2.png",
   "assets/tile3.png",
@@ -6,21 +13,32 @@ const tiles = [
   "assets/tile5.png",
   "assets/tile6.png",
   "assets/tile7.png",
-  "assets/tree.png",
+  //"assets/tree.png",
 ];
-let currentTile = 0; // index of tiles
 
-const background = "assets/tile7.png";
-
+let currentUrl = 0; // index of tiles
 let click = false;
+let design = [[]];
 
 const svg = document.getElementById("svg");
 const svgContainer = document.getElementById("svgContainer");
 
+const saveButton: HTMLButtonElement = document.createElement("button");
+saveButton.className = "saveButton";
+saveButton.type = "button";
+saveButton.innerHTML = "save";
+saveButton.addEventListener("click", save);
+
+svg.setAttribute("width", 320);
+svg.setAttribute("height", 400);
 
 svgContainer.appendChild(svg);
-svg.setAttribute("width", 500);
-svg.setAttribute("height", 500);
+svgContainer.append(saveButton);
+
+createGrid(32, 32);
+createPalette();
+
+
 
 function create(elementNone) {
   return document.createElementNS("http://www.w3.org/2000/svg", elementNone);
@@ -31,6 +49,9 @@ function createGrid(width, height) {
     for (let j = 0; j < height; j++) {
       
       const tile = create("image");
+
+      const tileContent = new Tile(currentUrl)
+      design[i] = []
       
       tile.addEventListener("mouseover", function () {
         if (click == true) {
@@ -39,7 +60,9 @@ function createGrid(width, height) {
           tile.setAttributeNS(null, "width", this.getAttribute("width"));
           tile.setAttributeNS(null, "height", this.getAttribute("height"));
           tile.setAttributeNS(null, 'visibility', 'visible');
-          tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", tiles[currentTile])
+          tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentUrl])
+          tileContent.url = currentUrl
+          design[i][j] = tileContent
         }
       });
       
@@ -50,7 +73,9 @@ function createGrid(width, height) {
         tile.setAttributeNS(null, "width", this.getAttribute("width"));
         tile.setAttributeNS(null, "height", this.getAttribute("height"));
         tile.setAttributeNS(null, 'visibility', 'visible');
-        tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", tiles[currentTile])
+        tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentUrl])
+        tileContent.url = currentUrl
+        design[i][j] = tileContent
       });
       
       tile.addEventListener("mouseup", function () {
@@ -62,7 +87,9 @@ function createGrid(width, height) {
       tile.setAttributeNS(null, "width", 10);
       tile.setAttributeNS(null, "height", 10);
       tile.setAttributeNS(null, 'visibility', 'visible');
-      tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", background)
+      tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentUrl])
+      
+      design[i][j] = tileContent
 
       svg?.append(tile)
     }
@@ -70,40 +97,26 @@ function createGrid(width, height) {
 }
 
 function createPalette() {
-  for (let k = 0; k < tiles.length; k++) {
-    //const selector = create("rect");
-    const img = create("image");
-    //img?.setAttribute("width", 10);
-    //img?.setAttribute("height", 10);
+  for (let k = 0; k < urls.length; k++) {
+    const color = create("image");
     
-    img.addEventListener("click", function () {
-      currentTile = k;
-      console.log(`SELECT ${tiles[currentTile]}`);
+    color.addEventListener("click", function () {
+      currentUrl = k;
     });
-    img.setAttributeNS(null, "x", k * 37);
-    img.setAttributeNS(null, "y", 320 + 20);
-    img.setAttributeNS(null, "width", 35);
-    img.setAttributeNS(null, "height", 35);
-    img.setAttributeNS(null, 'visibility', 'visible');
-    img.setAttributeNS('http://www.w3.org/1999/xlink', "href", tiles[k])
 
-    svg.append(img)
+    color.setAttributeNS(null, "x", k * 37);
+    color.setAttributeNS(null, "y", 320 + 20);
+    color.setAttributeNS(null, "width", 35);
+    color.setAttributeNS(null, "height", 35);
+    color.setAttributeNS(null, 'visibility', 'visible');
+    color.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[k])
+
+    svg.append(color)
   }
 }
 
-createGrid(32, 32);
-createPalette();
+function save() {
+  console.log(design)
+}
 
 
-
-let svgText = svgContainer.innerHTML;
-var jsonString = JSON.stringify(svgText);
-
-//console.log(jsonString);
-
-
-
-
-// Get the svgString from JSON
-//svgText = JSON.parse(jsonString);
-//console.log(svgText)
