@@ -2,7 +2,7 @@ import fs from "fs";
 
 class Tile {
   url;
-  constructor(url) {
+  constructor(url: string) {
     this.url = url;
   }
 }
@@ -19,15 +19,15 @@ const urls = [
 
 let currentTile = 0; // index referring to Tile
 let click = false;
-let design = [[]];
+let design: number[][] = [[]];
 
 const tiles = [];
 for (let i = 0; i < urls.length; i++) {
   tiles.push(new Tile(urls[i]));
 }
 
-const svg = document.getElementById("svg");
-const svgContainer = document.getElementById("svgContainer");
+const svg: HTMLElement = document.getElementById("svg");
+const svgContainer: HTMLElement = document.getElementById("svgContainer");
 
 const saveButton: HTMLButtonElement = document.createElement("button");
 saveButton.className = "saveButton";
@@ -35,8 +35,8 @@ saveButton.type = "button";
 saveButton.innerHTML = "save";
 saveButton.addEventListener("click", save);
 
-svg.setAttribute("width", 320);
-svg.setAttribute("height", 400);
+svg.setAttribute("width", '320');
+svg.setAttribute("height", '400');
 
 svgContainer.appendChild(svg);
 svgContainer.append(saveButton);
@@ -44,11 +44,11 @@ svgContainer.append(saveButton);
 createGrid(32, 32);
 createPalette();
 
-function create(elementNone) {
+function create(elementNone: any) {
   return document.createElementNS("http://www.w3.org/2000/svg", elementNone);
 }
 
-function createGrid(width, height) {
+function createGrid(width: number, height: number) {
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
       const tile = create("image");
