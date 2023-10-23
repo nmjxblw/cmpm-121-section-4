@@ -26,7 +26,7 @@ for (let i = 0; i < urls.length; i++) {
   tiles.push(new Tile(urls[i]));
 }
 
-const svg: HTMLElement | null = document.getElementById("svg");
+const svg: HTMLElement = create("svg");
 const svgContainer: HTMLElement | null =
   document.getElementById("svgContainer");
 
@@ -36,7 +36,7 @@ saveButton.type = "button";
 saveButton.innerHTML = "save";
 saveButton.addEventListener("click", save);
 
-if (svgContainer != null && svg != null) {
+if (svgContainer != null) {
   svg.setAttribute("width", "320");
   svg.setAttribute("height", "400");
   svgContainer.appendChild(svg);
@@ -104,7 +104,7 @@ function createGrid(width: number, height: number) {
 
       design[i][j] = currentTile;
 
-      svg?.append(tile);
+      svg.append(tile);
     }
   }
 }
@@ -124,9 +124,7 @@ function createPalette() {
     color.setAttributeNS(null, "visibility", "visible");
     color.setAttributeNS("http://www.w3.org/1999/xlink", "href", urls[k]);
 
-    if (svg != null) {
-      svg.append(color);
-    }
+    svg.append(color)
   }
 }
 
