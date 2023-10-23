@@ -57,7 +57,7 @@ function createGrid(width: number, height: number) {
       const tile = create("image");
       design[i] = [];
 
-      tile.addEventListener("mouseover", function () {
+      tile.addEventListener("mouseover", function (this: any) {
         if (click == true) {
           tile.setAttributeNS(null, "x", this.getAttribute("x"));
           tile.setAttributeNS(null, "y", this.getAttribute("y"));
@@ -73,7 +73,7 @@ function createGrid(width: number, height: number) {
         }
       });
 
-      tile.addEventListener("mousedown", function () {
+      tile.addEventListener("mousedown", function (this: any) {
         click = true;
         tile.setAttributeNS(null, "x", this.getAttribute("x"));
         tile.setAttributeNS(null, "y", this.getAttribute("y"));
@@ -125,7 +125,9 @@ function createPalette() {
     color.setAttributeNS(null, "visibility", "visible");
     color.setAttributeNS("http://www.w3.org/1999/xlink", "href", urls[k]);
 
-    svg.append(color);
+    if (svg != null) {
+      svg.append(color);
+    }
   }
 }
 
