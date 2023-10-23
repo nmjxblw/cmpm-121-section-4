@@ -8,13 +8,13 @@ class Tile {
 }
 
 const urls = [
-  "public/assets/tile1.png",
-  "public/assets/tile2.png",
-  "public/assets/tile3.png",
-  "public/assets/tile4.png",
-  "public/assets/tile5.png",
-  "public/assets/tile6.png",
-  "public/assets/tile7.png",
+  "cmpm-121-section-4/public/assets/tile1.png",
+  "cmpm-121-section-4/public/assets/tile2.png",
+  "cmpm-121-section-4/public/assets/tile3.png",
+  "cmpm-121-section-4/public/assets/tile4.png",
+  "cmpm-121-section-4/public/assets/tile5.png",
+  "cmpm-121-section-4/public/assets/tile6.png",
+  "cmpm-121-section-4/public/assets/tile7.png",
 ];
 
 let currentTile = 0; // index referring to Tile
