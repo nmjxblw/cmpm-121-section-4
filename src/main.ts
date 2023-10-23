@@ -1,7 +1,9 @@
+import fs from "fs";
+
 class Tile {
   url;
   constructor(url) {
-    this.url = url
+    this.url = url;
   }
 }
 
@@ -19,9 +21,9 @@ let currentTile = 0; // index referring to Tile
 let click = false;
 let design = [[]];
 
-const tiles = []
+const tiles = [];
 for (let i = 0; i < urls.length; i++) {
-  tiles.push(new Tile(urls[i]))
+  tiles.push(new Tile(urls[i]));
 }
 
 const svg = document.getElementById("svg");
@@ -42,8 +44,6 @@ svgContainer.append(saveButton);
 createGrid(32, 32);
 createPalette();
 
-
-
 function create(elementNone) {
   return document.createElementNS("http://www.w3.org/2000/svg", elementNone);
 }
@@ -51,47 +51,58 @@ function create(elementNone) {
 function createGrid(width, height) {
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
-      
       const tile = create("image");
-      design[i] = []
-      
+      design[i] = [];
+
       tile.addEventListener("mouseover", function () {
         if (click == true) {
           tile.setAttributeNS(null, "x", this.getAttribute("x"));
           tile.setAttributeNS(null, "y", this.getAttribute("y"));
           tile.setAttributeNS(null, "width", this.getAttribute("width"));
           tile.setAttributeNS(null, "height", this.getAttribute("height"));
-          tile.setAttributeNS(null, 'visibility', 'visible');
-          tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentTile])
-          design[i][j] = currentTile
+          tile.setAttributeNS(null, "visibility", "visible");
+          tile.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            "href",
+            urls[currentTile]
+          );
+          design[i][j] = currentTile;
         }
       });
-      
+
       tile.addEventListener("mousedown", function () {
         click = true;
         tile.setAttributeNS(null, "x", this.getAttribute("x"));
         tile.setAttributeNS(null, "y", this.getAttribute("y"));
         tile.setAttributeNS(null, "width", this.getAttribute("width"));
         tile.setAttributeNS(null, "height", this.getAttribute("height"));
-        tile.setAttributeNS(null, 'visibility', 'visible');
-        tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentTile])
-        design[i][j] = currentTile
+        tile.setAttributeNS(null, "visibility", "visible");
+        tile.setAttributeNS(
+          "http://www.w3.org/1999/xlink",
+          "href",
+          urls[currentTile]
+        );
+        design[i][j] = currentTile;
       });
-      
+
       tile.addEventListener("mouseup", function () {
         click = false;
       });
-      
-      tile.setAttributeNS(null, "x", i*10);
-      tile.setAttributeNS(null, "y", j*10);
+
+      tile.setAttributeNS(null, "x", i * 10);
+      tile.setAttributeNS(null, "y", j * 10);
       tile.setAttributeNS(null, "width", 10);
       tile.setAttributeNS(null, "height", 10);
-      tile.setAttributeNS(null, 'visibility', 'visible');
-      tile.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[currentTile])
-      
-      design[i][j] = currentTile
+      tile.setAttributeNS(null, "visibility", "visible");
+      tile.setAttributeNS(
+        "http://www.w3.org/1999/xlink",
+        "href",
+        urls[currentTile]
+      );
 
-      svg?.append(tile)
+      design[i][j] = currentTile;
+
+      svg?.append(tile);
     }
   }
 }
@@ -99,7 +110,7 @@ function createGrid(width, height) {
 function createPalette() {
   for (let k = 0; k < urls.length; k++) {
     const color = create("image");
-    
+
     color.addEventListener("click", function () {
       currentTile = k;
     });
@@ -108,15 +119,17 @@ function createPalette() {
     color.setAttributeNS(null, "y", 320 + 20);
     color.setAttributeNS(null, "width", 35);
     color.setAttributeNS(null, "height", 35);
-    color.setAttributeNS(null, 'visibility', 'visible');
-    color.setAttributeNS('http://www.w3.org/1999/xlink', "href", urls[k])
+    color.setAttributeNS(null, "visibility", "visible");
+    color.setAttributeNS("http://www.w3.org/1999/xlink", "href", urls[k]);
 
-    svg.append(color)
+    svg.append(color);
   }
 }
 
 function save() {
-  console.log(design)
+  console.log(design);
+  fs.writeFile("design.json", JSON.stringify(design), function (err) {
+    if (err) throw err;
+    console.log("complete");
+  });
 }
-
-
