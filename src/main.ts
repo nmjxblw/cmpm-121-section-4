@@ -27,7 +27,8 @@ for (let i = 0; i < urls.length; i++) {
 }
 
 const svg: HTMLElement | null = document.getElementById("svg");
-const svgContainer: HTMLElement | null = document.getElementById("svgContainer");
+const svgContainer: HTMLElement | null =
+  document.getElementById("svgContainer");
 
 const saveButton: HTMLButtonElement = document.createElement("button");
 saveButton.className = "saveButton";
@@ -35,13 +36,11 @@ saveButton.type = "button";
 saveButton.innerHTML = "save";
 saveButton.addEventListener("click", save);
 
-
 if (svgContainer != null && svg != null) {
-  svg.setAttribute("width", '320');
-  svg.setAttribute("height", '400');
+  svg.setAttribute("width", "320");
+  svg.setAttribute("height", "400");
   svgContainer.appendChild(svg);
   svgContainer.append(saveButton);
-
 }
 
 createGrid(32, 32);
@@ -67,7 +66,7 @@ function createGrid(width: number, height: number) {
           tile.setAttributeNS(
             "http://www.w3.org/1999/xlink",
             "href",
-            urls[currentTile]
+            urls[currentTile],
           );
           design[i][j] = currentTile;
         }
@@ -83,7 +82,7 @@ function createGrid(width: number, height: number) {
         tile.setAttributeNS(
           "http://www.w3.org/1999/xlink",
           "href",
-          urls[currentTile]
+          urls[currentTile],
         );
         design[i][j] = currentTile;
       });
@@ -100,7 +99,7 @@ function createGrid(width: number, height: number) {
       tile.setAttributeNS(
         "http://www.w3.org/1999/xlink",
         "href",
-        urls[currentTile]
+        urls[currentTile],
       );
 
       design[i][j] = currentTile;
