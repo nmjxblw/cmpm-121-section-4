@@ -26,8 +26,8 @@ for (let i = 0; i < urls.length; i++) {
   tiles.push(new Tile(urls[i]));
 }
 
-const svg: HTMLElement = document.getElementById("svg");
-const svgContainer: HTMLElement = document.getElementById("svgContainer");
+const svg: HTMLElement | null = document.getElementById("svg");
+const svgContainer: HTMLElement | null = document.getElementById("svgContainer");
 
 const saveButton: HTMLButtonElement = document.createElement("button");
 saveButton.className = "saveButton";
@@ -35,11 +35,14 @@ saveButton.type = "button";
 saveButton.innerHTML = "save";
 saveButton.addEventListener("click", save);
 
-svg.setAttribute("width", '320');
-svg.setAttribute("height", '400');
 
-svgContainer.appendChild(svg);
-svgContainer.append(saveButton);
+if (svgContainer != null && svg != null) {
+  svg.setAttribute("width", '320');
+  svg.setAttribute("height", '400');
+  svgContainer.appendChild(svg);
+  svgContainer.append(saveButton);
+
+}
 
 createGrid(32, 32);
 createPalette();
