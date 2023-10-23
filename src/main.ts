@@ -1,12 +1,5 @@
 import fs from "fs";
 
-class Tile {
-  url;
-  constructor(url: string) {
-    this.url = url;
-  }
-}
-
 const urls = [
   "/public/assets/tile1.png",
   "/public/assets/tile2.png",
@@ -20,11 +13,6 @@ const urls = [
 let currentTile = 0; // index referring to Tile
 let click = false;
 let design: number[][] = [[]];
-
-const tiles = [];
-for (let i = 0; i < urls.length; i++) {
-  tiles.push(new Tile(urls[i]));
-}
 
 const svg: HTMLElement = create("svg");
 const svgContainer: HTMLElement | null =
