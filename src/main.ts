@@ -1,5 +1,3 @@
-import fs from "fs";
-
 const urls = [
   "/public/assets/tile1.png",
   "/public/assets/tile2.png",
@@ -11,7 +9,6 @@ const urls = [
 ];
 
 let currentTile = 0; // index referring to Tile
-let click = false;
 let design: number[][] = [[]];
 
 const svg: HTMLElement = create("svg");
@@ -44,24 +41,8 @@ function createGrid(width: number, height: number) {
       const tile = create("image");
       design[i] = [];
 
-      tile.addEventListener("mouseover", function (this: any) {
-        if (click == true) {
-          tile.setAttributeNS(null, "x", this.getAttribute("x"));
-          tile.setAttributeNS(null, "y", this.getAttribute("y"));
-          tile.setAttributeNS(null, "width", this.getAttribute("width"));
-          tile.setAttributeNS(null, "height", this.getAttribute("height"));
-          tile.setAttributeNS(null, "visibility", "visible");
-          tile.setAttributeNS(
-            "http://www.w3.org/1999/xlink",
-            "href",
-            urls[currentTile],
-          );
-          design[i][j] = currentTile;
-        }
-      });
-
-      tile.addEventListener("mousedown", function (this: any) {
-        click = true;
+      // updating grid
+      tile.addEventListener("click", function (this: any) {
         tile.setAttributeNS(null, "x", this.getAttribute("x"));
         tile.setAttributeNS(null, "y", this.getAttribute("y"));
         tile.setAttributeNS(null, "width", this.getAttribute("width"));
@@ -75,10 +56,7 @@ function createGrid(width: number, height: number) {
         design[i][j] = currentTile;
       });
 
-      tile.addEventListener("mouseup", function () {
-        click = false;
-      });
-
+      // initializing grid
       tile.setAttributeNS(null, "x", i * 10);
       tile.setAttributeNS(null, "y", j * 10);
       tile.setAttributeNS(null, "width", 10);
@@ -101,10 +79,12 @@ function createPalette() {
   for (let k = 0; k < urls.length; k++) {
     const color = create("image");
 
+    // selector
     color.addEventListener("click", function () {
       currentTile = k;
     });
 
+    // initializing selectable tiles
     color.setAttributeNS(null, "x", k * 37);
     color.setAttributeNS(null, "y", 320 + 20);
     color.setAttributeNS(null, "width", 35);
@@ -118,8 +98,4 @@ function createPalette() {
 
 function save() {
   console.log(design);
-  fs.writeFile("design.json", JSON.stringify(design), function (err) {
-    if (err) throw err;
-    console.log("complete");
-  });
 }
