@@ -9,6 +9,7 @@ const urls = [
 ];
 
 let currentTile = 0; // index referring to Tile
+let clicked = false;
 
 const svg: HTMLElement = create("svg");
 const svgContainer: HTMLElement | null =
@@ -33,7 +34,8 @@ function createGrid(width: number, height: number) {
       const tile = create("image");
 
       // updating grid
-      tile.addEventListener("click", function (this: any) {
+      tile.addEventListener("mousedown", function (this: any) {
+        clicked = true;
         tile.setAttributeNS(null, "x", this.getAttribute("x"));
         tile.setAttributeNS(null, "y", this.getAttribute("y"));
         tile.setAttributeNS(null, "width", this.getAttribute("width"));
@@ -44,6 +46,24 @@ function createGrid(width: number, height: number) {
           "href",
           urls[currentTile]
         );
+      });
+
+      tile.addEventListener("mouseover", function (this: any) {
+        if (clicked == true) {
+          tile.setAttributeNS(null, "x", this.getAttribute("x"));
+          tile.setAttributeNS(null, "y", this.getAttribute("y"));
+          tile.setAttributeNS(null, "width", this.getAttribute("width"));
+          tile.setAttributeNS(null, "height", this.getAttribute("height"));
+          tile.setAttributeNS(null, "visibility", "visible");
+          tile.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            "href",
+            urls[currentTile]
+          );
+        }
+      });
+      tile.addEventListener("mouseup", function (this: any) {
+        clicked = false;
       });
 
       // initializing grid
