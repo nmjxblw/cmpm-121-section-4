@@ -44,7 +44,7 @@ function createGrid(width: number, height: number) {
         tile.setAttributeNS(
           "http://www.w3.org/1999/xlink",
           "href",
-          urls[currentTile]
+          urls[currentTile],
         );
       });
 
@@ -58,7 +58,7 @@ function createGrid(width: number, height: number) {
           tile.setAttributeNS(
             "http://www.w3.org/1999/xlink",
             "href",
-            urls[currentTile]
+            urls[currentTile],
           );
         }
       });
@@ -75,7 +75,7 @@ function createGrid(width: number, height: number) {
       tile.setAttributeNS(
         "http://www.w3.org/1999/xlink",
         "href",
-        urls[currentTile]
+        urls[currentTile],
       );
 
       svg.append(tile);
